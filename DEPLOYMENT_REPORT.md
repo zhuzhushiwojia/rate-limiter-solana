@@ -39,10 +39,13 @@
 - [x] Gas 优化说明
 
 ### 4. 部署状态
-- [⚠️] Devnet 部署 - **余额不足**
-  - 当前余额：2.496 SOL
-  - 所需余额：~3.7 SOL (1.703 SOL 程序存储 + 部署费用)
-  - 状态：等待空投或额外资金
+- [❌] Devnet 部署 - **空投速率限制**
+  - 程序账户余额：0.5 SOL (HzcpN3BLJ19g1M12kMAuragRcQX9AmPMbFZt6VqqdiTr)
+  - 钱包余额：0.29 SOL (6uuG8ssNjTjTLXStCE99QTK2RY9Fp5jsbx1DeDetdnGo)
+  - 总计：0.79 SOL
+  - 所需余额：~1.703 SOL (程序存储租金 + 部署费用)
+  - 短缺：~0.91 SOL
+  - 状态：⚠️ 需要 BOSS 手动干预 - 空投 faucet 速率限制耗尽
 
 ### 5. GitHub 仓库
 - [x] 公开仓库：https://github.com/zhuzhushiwojia/rate-limiter-solana
@@ -115,11 +118,25 @@ HzcpN3BLJ19g1M12kMAuragRcQX9AmPMbFZt6VqqdiTr
 - **所需余额**: ~3.7 SOL
 - **状态**: ⚠️ 等待额外空投
 
-### 部署尝试记录
+### 部署尝试记录 (2026-03-17 11:33-11:45 GMT+8)
+
 1. ✅ Solana CLI 安装完成 (v3.1.11)
-2. ✅ 配置 Devnet 成功
-3. ⚠️ API 空投失败 - 达到速率限制
-4. ⚠️ 部署失败 - 余额不足 (需要 3.703 SOL，现有 2.496 SOL)
+2. ✅ Anchor CLI 检测 (v0.31.0，版本略低但可用)
+3. ✅ 配置 Devnet 成功
+4. ✅ 钱包余额检查：0.79 SOL
+5. ⚠️ 首次部署失败 - 程序账户已存在但非 upgradeable 类型
+6. ✅ 回收旧程序账户资金：5 SOL → BOSS 钱包
+7. ⚠️ 二次部署失败 - 需要 1.703 SOL，仅有 0.79 SOL
+8. ⚠️ 空投尝试失败 - faucet 速率限制耗尽 (尝试 0.1-2 SOL 多次)
+9. ✅ 转移 0.5 SOL 到程序账户 (HzcpN3BLJ19g1M12kMAuragRcQX9AmPMbFZt6VqqdiTr)
+10. ❌ 最终状态：资金不足，需要额外 ~0.91 SOL
+
+### 已尝试解决方案
+- ✅ 回收旧程序账户的 5 SOL
+- ✅ 多次空投请求 (全部因速率限制失败)
+- ✅ 尝试不同空投金额 (0.1, 0.5, 1, 2 SOL)
+- ✅ 尝试直接 API 调用 faucet
+- ❌ 浏览器 faucet 不可用 (需要 Chrome 扩展附件)
 
 ---
 
@@ -127,8 +144,11 @@ HzcpN3BLJ19g1M12kMAuragRcQX9AmPMbFZt6VqqdiTr
 
 - **GitHub 仓库**: https://github.com/zhuzhushiwojia/rate-limiter-solana
 - **Program ID**: `HzcpN3BLJ19g1M12kMAuragRcQX9AmPMbFZt6VqqdiTr`
+- **Solana Explorer (Devnet)**: https://explorer.solana.com/address/HzcpN3BLJ19g1M12kMAuragRcQX9AmPMbFZt6VqqdiTr?cluster=devnet
+- **钱包地址**: https://explorer.solana.com/address/6uuG8ssNjTjTLXStCE99QTK2RY9Fp5jsbx1DeDetdnGo?cluster=devnet
 - **Anchor Docs**: https://www.anchor-lang.com
 - **Solana Cookbook**: https://solanacookbook.com
+- **Devnet Faucet**: https://faucet.solana.com
 
 ---
 
@@ -154,17 +174,25 @@ HzcpN3BLJ19g1M12kMAuragRcQX9AmPMbFZt6VqqdiTr
 
 ## 📝 后续步骤
 
-### 需要完成
-1. 获取额外 Devnet SOL (通过 faucet.solana.com)
-2. 完成程序部署到 Devnet
-3. 验证部署交易
-4. 提交 Superteam Poland Bounty Issue
+### 需要完成 (等待 BOSS 手动干预)
+1. ⏸️ 获取额外 Devnet SOL - **需要 ~0.91 SOL**
+   - 选项 A: 等待 24 小时 faucet 重置
+   - 选项 B: 手动访问 https://faucet.solana.com
+   - 选项 C: 从其他钱包转移
+2. ⏸️ 完成程序部署到 Devnet
+3. ⏸️ 验证部署交易
+4. ⏸️ 提交 Superteam Poland Bounty Issue
 
 ### Bounty 提交内容
 - [ ] Demo/交易链接 (等待部署完成)
-- [x] GitHub 仓库链接
+- [x] GitHub 仓库链接：https://github.com/zhuzhushiwojia/rate-limiter-solana
 - [x] 文档链接 (README.md)
 - [x] 测试报告
+- [x] 部署报告 (本文档)
+
+### 部署完成后的提交链接
+- **GitHub Issue #1**: https://github.com/zhuzhushiwojia/rate-limiter-solana/issues/1
+- **Superteam Poland Bounty**: Rebuild Backend Systems - 1,000 USDC
 
 ---
 
@@ -174,11 +202,70 @@ HzcpN3BLJ19g1M12kMAuragRcQX9AmPMbFZt6VqqdiTr
 开发完成度：100% ████████████████████
 测试覆盖：100%   ████████████████████
 文档完整：100%   ████████████████████
-部署状态：67%    ██████████████░░░░░░
-Bounty 提交：80% ████████████████░░░░
+部署状态：50%    ██████████░░░░░░░░░░
+Bounty 提交：70% ██████████████░░░░░░
 ```
 
 ---
 
-*报告生成时间：2026-03-17 10:55 GMT+8*
+## 🚨 需要 BOSS 手动干预
+
+### 问题：Devnet SOL 不足
+
+**当前状态**:
+- 程序账户 (HzcpN3BLJ19g1M12kMAuragRcQX9AmPMbFZt6VqqdiTr): 0.5 SOL
+- 钱包 (6uuG8ssNjTjTLXStCE99QTK2RY9Fp5jsbx1DeDetdnGo): 0.29 SOL
+- **总计**: 0.79 SOL
+- **需要**: 1.703 SOL
+- **短缺**: ~0.91 SOL
+
+**原因**: Devnet faucet 速率限制耗尽，无法自动获取测试 SOL
+
+**解决方案** (任选其一):
+
+1. **等待 faucet 重置** (推荐)
+   - 等待 24 小时后重试空投
+   - 然后运行：`solana airdrop 2 --url devnet`
+
+2. **使用备用 faucet**
+   - 访问 https://faucet.solana.com (需要手动操作)
+   - 或使用 Solana Discord faucet
+
+3. **使用其他有钱包**
+   - 如果有其他 devnet 钱包有余额，可以转移过来
+
+**部署命令** (资金充足后执行):
+```bash
+export PATH="/home/ggmini/.local/share/solana/install/active_release/bin:$PATH"
+cd /home/ggmini/.openclaw/workspace/bounties/rebuild-backend-rate-limiter/rate-limiter
+solana program deploy target/deploy/rate_limiter.so --keypair target/deploy/rate_limiter-keypair.json --url devnet
+```
+
+**预期输出**:
+```
+Deploying program "rate_limiter.so"...
+Program Id: HzcpN3BLJ19g1M12kMAuragRcQX9AmPMbFZt6VqqdiTr
+```
+
+---
+
+---
+
+## 📊 最终状态总结
+
+| 项目 | 状态 | 详情 |
+|------|------|------|
+| Solana CLI | ✅ 已安装 | v3.1.11 |
+| Anchor CLI | ✅ 可用 | v0.31.0 |
+| Devnet 配置 | ✅ 已完成 | https://api.devnet.solana.com |
+| 程序构建 | ✅ 已完成 | target/deploy/rate_limiter.so (244KB) |
+| 程序账户 | ✅ 已创建 | HzcpN3BLJ19g1M12kMAuragRcQX9AmPMbFZt6VqqdiTr |
+| 资金状态 | ❌ 不足 | 0.79 SOL / 1.703 SOL 需要 |
+| 空投 faucet | ❌ 速率限制 | 需要等待 24 小时或手动操作 |
+| 部署状态 | ⏸️ 等待中 | 需要 BOSS 手动补充 SOL |
+
+---
+
+*报告生成时间：2026-03-17 10:55 GMT+8*  
+*最后更新：2026-03-17 11:45 GMT+8*  
 *牛马 🐂🐴 - Rate Limiter 部署专员*
