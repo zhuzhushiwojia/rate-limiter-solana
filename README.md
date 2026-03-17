@@ -284,7 +284,9 @@ anchor test
 ## 🔗 相关链接
 
 - **Program ID (Devnet)**: `HzcpN3BLJ19g1M12kMAuragRcQX9AmPMbFZt6VqqdiTr`
-- **GitHub**: [仓库链接]
+- **GitHub**: https://github.com/zhuzhushiwojia/rate-limiter-solana
+- **Bounty Submission**: https://github.com/zhuzhushiwojia/rate-limiter-solana/issues/1
+- **Deployment Report**: https://github.com/zhuzhushiwojia/rate-limiter-solana/blob/main/DEPLOYMENT_REPORT.md
 - **Anchor Docs**: https://www.anchor-lang.com
 - **Solana Cookbook**: https://solanacookbook.com
 
